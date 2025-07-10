@@ -19,3 +19,23 @@ function showSlides(n, no) {
   }
   x[slideIndex[no]-1].style.display = "block";
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const projects = document.querySelectorAll(".project");
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target); // Animate once
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  projects.forEach(project => {
+    observer.observe(project);
+  });
+});
