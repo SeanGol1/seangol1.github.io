@@ -20,7 +20,6 @@ function showSlides(n, no) {
   x[slideIndex[no]-1].style.display = "block";
 }
 
-<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", () => {
   const projects = document.querySelectorAll(".project");
 
@@ -37,24 +36,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   projects.forEach(project => observer.observe(project));
-=======
-
-document.addEventListener("DOMContentLoaded", () => {
-  const projects = document.querySelectorAll(".project");
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        obs.unobserve(entry.target); // Animate once
-      }
-    });
-  }, {
-    threshold: 0.1
-  });
-
-  projects.forEach(project => {
-    observer.observe(project);
-  });
->>>>>>> b46fb7ab63450cf6a8e83cb5632133ae9a59b9ad
 });
