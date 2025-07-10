@@ -185,6 +185,7 @@
 
   /* Transition */
   .project {
+<<<<<<< HEAD
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -195,3 +196,15 @@
     opacity: 1;
     transform: translateY(0);
   }
+=======
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.project.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+>>>>>>> b46fb7ab63450cf6a8e83cb5632133ae9a59b9ad
