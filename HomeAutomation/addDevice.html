@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device=width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <title>Home</title>
+  <style>
+    body {
+      background-image: url('https://cdn.pixabay.com/photo/2017/11/28/17/41/nature-2984221_960_720.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      image-rendering: -webkit-optimize-contrast;
+      color: rgb(239, 239, 243);
+    }
+
+    span {
+      color: rgb(239, 239, 243)
+    }
+
+    #idname {}
+
+    .noteitem {
+      color: red;
+      /* }
+          .rating {
+            float:left;
+            width:300px;
+          }
+          .rating span { float:right; position:relative; }
+          .rating span input {
+              position:absolute;
+              top:0px;
+              left:0px;
+              opacity:0;
+          }
+          .rating span label {
+              display:inline-block;
+              width:30px;
+              height:30px;
+              text-align:center;
+              color:#FFF;
+              background:#ccc;
+              font-size:30px;
+              margin-right:2px;
+              line-height:30px;
+              border-radius:50%;
+              -webkit-border-radius:50%;
+          }
+          .rating span:hover ~ span label,
+          .rating span:hover label,
+          .rating span.checked label,
+          .rating span.checked ~ span label {
+              background:#F90;
+              color:#FFF; */
+    }
+
+    .txt-center {
+      text-align: center;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .clear {
+      float: none;
+      clear: both;
+    }
+
+    .rating {
+      width: 90px;
+      unicode-bidi: bidi-override;
+      direction: rtl;
+      text-align: center;
+      position: relative;
+    }
+
+    .rating>label {
+      float: right;
+      display: inline;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      width: 1.1em;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .rating>label:hover,
+    .rating>label:hover~label,
+    .rating>input.radio-btn:checked~label {
+      color: transparent;
+    }
+
+    .rating>label:hover:before,
+    .rating>label:hover~label:before,
+    .rating>input.radio-btn:checked~label:before,
+    .rating>input.radio-btn:checked~label:before {
+      content: "\2605";
+      position: absolute;
+      left: 0;
+      color: #FFD700;
+    }
+
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #04AA6D;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #04AA6D;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav">
+            <a class="nav-item nav-link" id="home" href="/HomeAutomation/home">Home</a>
+            <a class="nav-item nav-link" id="devices" href="/HomeAutomation/devices">Devices</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="alert alert-danger alter-dismissable fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="alert alert-success alter-dismissable fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <div class="container">
+
+<div class="container mt-5">
+    <div class="card bg-dark text-light">
+        <div class="card-header">
+            <h4><i class="fa fa-plus-circle"></i> Add New Device</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/addDevice">
+                
+                <div class="form-group">
+                    <label for="device-type">Device Type</label>
+                    <select class="form-control" id="device-type" name="device_type" required>
+                        <option value="">Select a Type</option>
+                        <option value="light">Smart Lightbulb</option>
+                        <option value="firestick">Firestick TV</option>
+                        <option value="spotify">Spotify</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="device-name">Device Name</label>
+                    <input type="text" class="form-control" id="device-name" name="device_name"
+                        placeholder="e.g., Kitchen Lamp" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="device-ip">IP Address</label>
+                    <input type="text" class="form-control" id="device_ip" name="device_ip"
+                        placeholder="e.g., 192.168.1.15" required pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$">
+                </div>
+                <div id="bulb-fields" class="d-none">
+                <div class="form-group">
+                    <label for="device-make">Bulb Make</label>
+                    <select class="form-control" id="device-make" name="device_make">
+                        <option value="">Select a Make</option>
+                        <option value="tuya">Tuya</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="device-id">Light ID</label>
+                    <input type="text" class="form-control" id="device-id" name="device_id"
+                        placeholder="vai7va98756da7687vd6b87a0n">
+                </div>
+
+                <div class="form-group">
+                    <label for="device-key">Light Key/ Local Key</label>
+                    <input type="text" class="form-control" id="device-key" name="device_key" placeholder="py#ef~4vp;dr4">
+                </div>
+            </div>
+
+
+                <button type="submit" class="btn btn-success btn-block">
+                    <i class="fa fa-save"></i> Save Light
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Toggle bulb fields visibility -->
+<script>
+$(document).ready(function () {
+    $('form').on('submit', function (e) {
+        e.preventDefault(); // Prevent actual form submission
+
+        const deviceType = $('#device-type').val();
+        const deviceName = $('#device-name').val();
+        const deviceIP = $('#device_ip').val();
+
+        const newDevice = {
+            type: deviceType,
+            name: deviceName,
+            ip: deviceIP
+        };
+
+        if (deviceType === 'light') {
+            newDevice.make = $('#device-make').val();
+            newDevice.id = $('#device-id').val();
+            newDevice.key = $('#device-key').val();
+        }
+
+        // Retrieve existing devices from localStorage or create empty array
+        let devices = JSON.parse(localStorage.getItem('devices')) || [];
+
+        // Add new device
+        devices.push(newDevice);
+
+        // Save updated array back to localStorage
+        localStorage.setItem('devices', JSON.stringify(devices));
+
+        // Optional: show confirmation and reset form
+        alert('Device saved to localStorage!');
+        this.reset();
+        $('#bulb-fields').addClass('d-none');
+    });
+
+    // Show/hide additional fields if type is "light"
+    $('#device-type').on('change', function () {
+        if ($(this).val() === 'light') {
+            $('#bulb-fields').removeClass('d-none');
+        } else {
+            $('#bulb-fields').addClass('d-none');
+        }
+    });
+});
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const deviceType = document.getElementById("device-type");
+        const bulbFields = document.getElementById("bulb-fields");
+        // bulbFields.classList.add("d-none");
+        deviceType.addEventListener("change", function () {
+            if (this.value === "light") {
+                bulbFields.classList.remove("d-none");
+            } else {
+                bulbFields.classList.add("d-none");
+            }
+        });
+    });
+</script>
+  </div>
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha384-+r6gDfG5/wCqu3OyXQYbM/h2vGzt6KoYzVxNfCLxlyyNHm2YLa0bGbHzrTNBvUjL"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+
+
+</body>
+
+</html>

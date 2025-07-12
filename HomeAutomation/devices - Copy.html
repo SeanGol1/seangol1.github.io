@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Smart Home Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      background-color: #1c1c1c;
+      color: white;
+    }
+    .card {
+      background-color: #2c2c2c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h2>My Devices</h2>
+    <div class="row" id="device-list">
+      <!-- Devices will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    function renderDevices() {
+      const devices = JSON.parse(localStorage.getItem("devices")) || [];
+      const $list = $("#device-list");
+      $list.empty();
+
+      devices.forEach((d, index) => {
+        let card = '';
+
+        if (d.type === "light") {
+          card = `
+            <div class="col-md-6 mb-4">
+              <div class="card text-light">
+                <div class="card-header"><i class="fa fa-lightbulb-o"></i> ${d.name}</div>
+                <div class="card-body">
+                  <button class="btn btn-success btn-block mb-2">Toggle ON/OFF</button>
+                  <button class="btn btn-secondary btn-block mb-2">Toggle Brightness</button>
+                  <div class="form-group">
+                    <label>Set Brightness:</label>
+                    <input type="range" min="0" max="100" value="50" class="form-control-range mb-2">
+                  </div>
+                  <input type="color" class="form-control" value="#ffffff">
+                  <small class="form-text text-muted mt-2">Make: ${d.make}, ID: ${d.id}, Key: ${d.key}</small>
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (d.type === "firestick") {
+          card = `
+            <div class="col-md-6 mb-4">
+              <div class="card text-light">
+                <div class="card-header"><i class="fa fa-television"></i> ${d.name}</div>
+                <div class="card-body">
+                  <button class="btn btn-info btn-block mb-2">Next Episode</button>
+                  <button class="btn btn-info btn-block mb-2">Play/Pause</button>
+                  <button class="btn btn-info btn-block mb-2">Most Recent Show</button>
+                  <button class="btn btn-info btn-block">Formula 1</button>
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (d.type === "spotify") {
+          card = `
+            <div class="col-md-6 mb-4">
+              <div class="card text-light">
+                <div class="card-header"><i class="fa fa-spotify"></i> ${d.name}</div>
+                <div class="card-body">
+                  <button class="btn btn-success btn-block">Toggle Spotify</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        $list.append(card);
+      });
+    }
+
+    // Initial load
+    $(document).ready(() => {
+      renderDevices();
+    });
+  </script>
+</body>
+</html>

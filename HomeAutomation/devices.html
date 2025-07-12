@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device=width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Home</title>
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2017/11/28/17/41/nature-2984221_960_720.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            image-rendering: -webkit-optimize-contrast;
+            color: rgb(239, 239, 243);
+        }
+
+        span {
+            color: rgb(239, 239, 243)
+        }
+
+        #idname {}
+
+        .noteitem {
+            color: red;
+            /* }
+          .rating {
+            float:left;
+            width:300px;
+          }
+          .rating span { float:right; position:relative; }
+          .rating span input {
+              position:absolute;
+              top:0px;
+              left:0px;
+              opacity:0;
+          }
+          .rating span label {
+              display:inline-block;
+              width:30px;
+              height:30px;
+              text-align:center;
+              color:#FFF;
+              background:#ccc;
+              font-size:30px;
+              margin-right:2px;
+              line-height:30px;
+              border-radius:50%;
+              -webkit-border-radius:50%;
+          }
+          .rating span:hover ~ span label,
+          .rating span:hover label,
+          .rating span.checked label,
+          .rating span.checked ~ span label {
+              background:#F90;
+              color:#FFF; */
+        }
+
+        .txt-center {
+            text-align: center;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .clear {
+            float: none;
+            clear: both;
+        }
+
+        .rating {
+            width: 90px;
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+            position: relative;
+        }
+
+        .rating>label {
+            float: right;
+            display: inline;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            width: 1.1em;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .rating>label:hover,
+        .rating>label:hover~label,
+        .rating>input.radio-btn:checked~label {
+            color: transparent;
+        }
+
+        .rating>label:hover:before,
+        .rating>label:hover~label:before,
+        .rating>input.radio-btn:checked~label:before,
+        .rating>input.radio-btn:checked~label:before {
+            content: "\2605";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+        }
+
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #04AA6D;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #04AA6D;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" id="home" href="/HomeAutomation/home">Home</a>
+                <a class="nav-item nav-link" id="devices" href="/HomeAutomation/devices">Devices</a>
+            </div>
+        </div>
+
+    </nav>
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="container">
+
+        <div>
+            <br>
+            <a class="btn btn-primary btn-block mb-2" id="add-device" href="/addDevice">Add New Device</a>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row">
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            const devices = JSON.parse(localStorage.getItem("devices")) || [];
+
+            const $deviceRow = $(".row").first(); // First row in the container
+
+            devices.forEach((d) => {
+                let cardHtml = "";
+
+                if (d.type === "light") {
+                    cardHtml = `
+      <div class="col-md-6 mb-4" id="obj${d.ip}" data-object='${JSON.stringify(d)}'>
+        <div class="card bg-dark text-light">
+          <div class="card-header"><i class="fa fa-lightbulb-o"></i> ${d.name}</div>
+          <div class="card-body">
+            <button class="btn btn-success btn-block mb-2 lampswitch" id="lampswitch-${d.ip}" data-ip="${d.ip}">Toggle ON/OFF</button>
+            <button class="btn btn-secondary btn-block lampbright" id="lampbright-${d.ip}" data-ip="${d.ip}">Toggle Brightness</button>
+            <div class="slidecontainer">
+              <p>Set Brightness:</p>
+              <input type="range" min="0" max="100" value="${d.brightness || 50}" class="slider brightnessSlider" id="brightnessSlider-${d.ip}" data-ip="${d.ip}">
+            </div>
+            <input type="color" id="lightcolour-${d.ip}" class="lightcolour" name="lightcolour" value="${d.colour || "#ffffff"}" data-ip="${d.ip}">
+          </div>
+        </div>
+      </div>`;
+                }
+
+                else if (d.type === "firestick") {
+                    cardHtml = `
+      <div class="col-md-6 mb-4" id="obj${d.ip}">
+        <div class="card bg-dark text-light">
+          <div class="card-header"><i class="fa fa-television"></i> ${d.name}</div>
+          <div class="card-body">
+            <button class="btn btn-info btn-block mb-2" id="next_episode-${d.ip}">Next Episode</button>
+            <button class="btn btn-info btn-block mb-2" id="playpause-${d.ip}">Play/Pause</button>
+            <button class="btn btn-info btn-block mb-2" id="recent_show-${d.ip}">Most Recent Show</button>
+            <button class="btn btn-info btn-block" id="formula1-${d.ip}">Formula 1</button>
+          </div>
+        </div>
+      </div>`;
+                }
+
+                else if (d.type === "spotify") {
+                    cardHtml = `
+      <div class="col-md-6 mb-4" id="obj${d.ip}">
+        <div class="card bg-dark text-light">
+          <div class="card-header"><i class="fa fa-spotify"></i> ${d.name}</div>
+          <div class="card-body">
+            <button class="btn btn-info btn-block" id="spotify-${d.ip}">Toggle Spotify</button>
+          </div>
+        </div>
+      </div>`;
+                }
+
+                $deviceRow.append(cardHtml);
+            });
+        });
+    </script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha384-+r6gDfG5/wCqu3OyXQYbM/h2vGzt6KoYzVxNfCLxlyyNHm2YLa0bGbHzrTNBvUjL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+
+
+</body>
+
+</html>
