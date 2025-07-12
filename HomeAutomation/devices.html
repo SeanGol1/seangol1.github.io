@@ -149,6 +149,9 @@
 </head>
 
 <body>
+<div class="alert alert-warning text-dark text-center mb-0 rounded-0" role="alert" style="background-color: #ffc107;">
+    <strong>Demo Notice:</strong> This is a demo site running on a serverless environment. Device data is stored in <code>localhost</code> only and is not persisted across sessions.
+</div>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -164,19 +167,6 @@
         </div>
 
     </nav>
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
-
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
 
 
     <div class="container">
@@ -251,12 +241,26 @@
 
                 $deviceRow.append(cardHtml);
             });
+
+              $('.lampswitch').on('click', function(e) {
+
+            e.preventDefault();
+
+            if ($(this).hasClass('btn-success')) {
+                $(this).removeClass('btn-success').addClass('btn-danger');
+            } else {
+                $(this).removeClass('btn-danger').addClass('btn-success');
+            }
+       
+        });
         });
     </script>
 
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script> -->
+
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha384-+r6gDfG5/wCqu3OyXQYbM/h2vGzt6KoYzVxNfCLxlyyNHm2YLa0bGbHzrTNBvUjL"
         crossorigin="anonymous"></script>
@@ -267,7 +271,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+    
 
 
 </body>
