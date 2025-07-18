@@ -31,6 +31,21 @@
         </p>
     </section>
 
+        <section class="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>C#/.NET</li>
+            <li>JavaScript</li>
+            <li>TypeScript</li>
+            <li>Lua</li>
+            <li>Python</li>
+            <li>Angular</li>
+            <li>SQL</li>
+            <li>HTML/CSS</li>
+            <li>Git</li>
+        </ul>
+    </section>
+
     <section class="projects">
         <h2>Projects</h2>
         <div class="project">
@@ -42,19 +57,19 @@
                 <div class="mySlides3 fade">
                     <div class="numbertext">1 / 3</div>
                     <img src="./images/homeautomation_2.png" style="width:100%">
-                    <div class="text">Dashboard Window</div>
+                    <div class="text"><i>Dashboard with handy everyday features to be displayed on a tablet in the house</i></div>
                 </div>
 
                 <div class="mySlides3 fade">
                     <div class="numbertext">2 / 3</div>
                     <img src="./images/homeautomation.png" style="width:100%">
-                    <div class="text">Device Screen</div>
+                    <div class="text"><i>Full control over various smart devices</i></div>
                 </div>
 
                 <div class="mySlides3 fade">
                     <div class="numbertext">3 / 3</div>
                     <img src="./images/homeautomation_1.png" style="width:100%">
-                    <div class="text">Add New Device</div>
+                    <div class="text"><i>Add or remove various types of smart devices to be controlled</i></div>
                 </div>
 
                 <a class="prev" onclick="plusSlides(-1,2)">❮</a>
@@ -74,6 +89,42 @@
             <a href="https://github.com/SeanGol1/HomeAutomation" class="linkVisit" target="_blank">View on
                 Github</a>
         </div>
+
+        <div class="project">
+            <h3>Interview Question Generator</h3>
+            <p>InterviewQuestions is a web application that helps you practice and prepare for job interviews by leveraging OpenAI's GPT model.</p>
+            <br>
+            <div class="slideshow-container">
+                <div class="mySlides4 fade">
+                    <div class="numbertext">1 / 3</div>
+                    <img src="./images/InteviewQuestions.png" style="width:100%">
+                    <div class="text"><i>Enter the job description of the job you are applying for</i></div>
+                </div>
+
+                <div class="mySlides4 fade">
+                    <div class="numbertext">2 / 3</div>
+                    <img src="./images/InteviewQuestions_1.png" style="width:100%">
+                    <div class="text"><i>Give you a score and feedback on answers</i></div>
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1,3)">❮</a>
+                <a class="next" onclick="plusSlides(1,3)">❯</a>
+
+            </div>
+            <br>
+
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+
+            <a href="https://orange-wave-0ad6dac1e.1.azurestaticapps.net/" class="linkVisit" target="_blank">Visit Website</a>
+                        &vert;
+            <a href="https://github.com/SeanGol1/InterviewQuestions" class="linkVisit" target="_blank">View on
+                Github</a>
+        </div>
+
         <div class="project">
             <h3>Backpackerer</h3>
             <p>Angular frontend with a C# .NET API backend for planning and managing travel itineraries while backpacking. 
@@ -84,19 +135,19 @@
                 <div class="mySlides1 fade">
                     <div class="numbertext">1 / 3</div>
                     <img src="./images/Backpackerer.png" style="width:50%">
-                    <div class="text">Plan Screen</div>
+                    <div class="text"><i>Build your backpacking route by entering all the countries you plan on visiting</i></div>
                 </div>
 
                 <div class="mySlides1 fade">
                     <div class="numbertext">2 / 3</div>
                     <img src="./images/Backpackerer_1.png" style="width:50%">
-                    <div class="text">Country Details/To-Do's</div>
+                    <div class="text"><i>View details about each place your visiting, and add activities/To-Dos to each place</i></div>
                 </div>
 
                 <div class="mySlides1 fade">
                     <div class="numbertext">3 / 3</div>
                     <img src="./images/Backpackerer_2.png" style="width:50%">
-                    <div class="text">Map that tracks your route</div>
+                    <div class="text"><i>View a Map of the route you are taking</i></div>
                 </div>
 
                 <a class="prev" onclick="plusSlides(-1,0)">❮</a>
@@ -122,19 +173,19 @@
                 <div class="mySlides2 fade">
                     <div class="numbertext">1 / 3</div>
                     <img src="./images/CampaignCompanion.png" style="width:100%">
-                    <div class="text">Campaign Screen</div>
+                    <div class="text"><i>Keep track of previous sessions and details about the campaign</i></div>
                 </div>
 
                 <div class="mySlides2 fade">
                     <div class="numbertext">2 / 3</div>
                     <img src="./images/CampaignCompanion_players.png" style="width:100%">
-                    <div class="text">Player Character Details (imported from DnD Beyond)</div>
+                    <div class="text"><i>Import Player Characters directly from DnD Beyond or add manually</i></div>
                 </div>
 
                 <div class="mySlides2 fade">
                     <div class="numbertext">3 / 3</div>
                     <img src="./images/CampaignCompanion_quests.png" style="width:100%">
-                    <div class="text">List of Active / Completed Quests</div>
+                    <div class="text"><i>Display list of quests for your players with the option of marking them hidden / completed</i></div>
                 </div>
 
                 <a class="prev" onclick="plusSlides(-1,1)">❮</a>
@@ -155,7 +206,7 @@
                 Github</a>
         </div>
 
-        <div class="project">
+        <!-- <div class="project">
             <h3>Dashboard</h3>
             <p>A general-purpose dashboard built with HTML, JavaScript, and Python (Flask), designed to run locally on a Raspberry Pi 3 for monitoring and controlling custom data and devices.</p>
             <br>
@@ -163,23 +214,11 @@
             <img src="./images/Dashboard.png" style="width:100%">
             <br>
             <a href="https://github.com/SeanGol1/Dashboard" class="linkVisit" target="_blank">View on Github</a>
-        </div>
+        </div> -->
+
     </section>
 
-    <section class="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>C#/.NET</li>
-            <li>JavaScript</li>
-            <li>TypeScript</li>
-            <li>Lua</li>
-            <li>Python</li>
-            <li>Angular</li>
-            <li>SQL</li>
-            <li>HTML/CSS</li>
-            <li>Git</li>
-        </ul>
-    </section>
+
 
     <section class="contact">
         <h2>Contact</h2>
