@@ -201,9 +201,34 @@
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 
-
-#btnDownload{
+#btnDownload {
   text-align: center;
-  margin:20px;
+  margin: 2rem 0;
+}
 
+.btn-download {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-download:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-download:active {
+  transform: scale(0.98);
+}
+
+img.mySlide {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }

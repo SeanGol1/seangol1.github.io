@@ -38,3 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   projects.forEach(project => observer.observe(project));
 });
+
+
+window.addEventListener("load", () => {
+  // Initialize slideshow
+  for (let i = 0; i < slideId.length; i++) {
+    showSlides(slideIndex[i], i);
+  }
+
+});
