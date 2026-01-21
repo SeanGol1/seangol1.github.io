@@ -6,10 +6,10 @@ showSlides(1, 1);
 showSlides(1, 2);
 // showSlides(1, 3);
 
-function currentSlide(n) {
+function currentSlide(n, dotElement) {
   // Find which slideshow this dot belongs to
-  const dot = event.target;
-  const project = dot.closest(".project");
+  //const dot = event.target;
+  const project = dotElement.closest(".project");
   const projects = Array.from(document.querySelectorAll(".project"));
 
   const slideshowIndex = projects.indexOf(project);
