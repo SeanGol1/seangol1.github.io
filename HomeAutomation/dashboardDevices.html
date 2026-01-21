@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device=width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a2e0d4b308.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridstack@9.2.2/dist/gridstack.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./static/style.css" />
+    <title>Devices</title>
+</head>
+
+<body>
+    <div class="alert alert-warning text-dark text-center mb-0 rounded-0" role="alert" style="background-color: #ffc107;">
+    <strong>Demo Notice:</strong> This is a demo site running on a serverless environment. Device data is stored in <code>localhost</code> only and is not persisted across sessions.
+</div>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="">
+            <ul class="nav flex-column">
+                <li class="nav-item ">
+                    <a class="nav-link align-items-center" href="/dashboard"><i class="fas fa-home"></i></a><!--Home-->
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link align-items-center" href="/devicesDashboard"><i
+                            class="fas fa-lightbulb"></i></a><!--Devices-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link align-items-center" href="/scenes"><i
+                            class="fas fa-clapperboard"></i></a><!--Scenes-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link align-items-center" href="/usersettings"><i
+                            class="fas fa-cogs"></i></a><!--Settings-->
+                </li>
+            </ul>
+
+            <label class="switch">
+                <input class="switch__input" type="checkbox" role="switch" id="darkModeToggle">
+                <svg class="switch__icon switch__icon--light" viewBox="0 0 12 12" width="12px" height="12px"
+                    aria-hidden="true">
+                    <g fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round">
+                        <circle cx="6" cy="6" r="2" />
+                        <g stroke-dasharray="1.5 1.5">
+                            <polyline points="6 10,6 11.5" transform="rotate(0,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(45,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(90,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(135,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(180,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(225,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(270,6,6)" />
+                            <polyline points="6 10,6 11.5" transform="rotate(315,6,6)" />
+                        </g>
+                    </g>
+                </svg>
+                <svg class="switch__icon switch__icon--dark" viewBox="0 0 12 12" width="12px" height="12px"
+                    aria-hidden="true">
+                    <g fill="none" stroke="#fff" stroke-width="1" stroke-linejoin="round" transform="rotate(-45,6,6)">
+                        <path
+                            d="m9,10c-2.209,0-4-1.791-4-4s1.791-4,4-4c.304,0,.598.041.883.105-.995-.992-2.367-1.605-3.883-1.605C2.962.5.5,2.962.5,6s2.462,5.5,5.5,5.5c1.516,0,2.888-.613,3.883-1.605-.285.064-.578.105-.883.105Z" />
+                    </g>
+                </svg>
+                <span class="switch__sr">Dark Mode</span>
+            </label>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-grow-1 p-3" id="main-content">
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 mb-3">
+                        <div class="map-container">
+                            <div class="floorplan-wrapper">
+                                <!-- Background video -->
+                                <video class="floorplan-video" autoplay muted loop playsinline preload="auto"
+                                    poster="./static/houseplan.jpg">
+                                    <source src="./static/houseplan.mp4" type="video/mp4">
+                                    <img src="./static/houseplan.jpg" alt="Floorplan">
+                                </video>
+                                <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="house-map">
+                                    <style>
+                                        .room {
+                                            fill: rgba(59, 130, 246, 0.0);
+
+                                            cursor: pointer;
+                                            transition: fill 0.2s ease;
+                                        }
+
+                                        .room.active {
+                                            fill: rgba(255, 244, 26, 0.25);
+                                            transition: fill 0.2s ease;
+                                        }
+                                    </style>
+
+                                    <g id="bed_room_1">
+                                        <rect class="room" x="20" y="80" width="275" height="275" />
+                                    </g>
+
+                                    <g id="bathroom">
+                                        <rect class="room" x="295" y="80" width="200" height="275" />
+                                    </g>
+
+                                    <g id="kitchen">
+                                        <rect class="room" x="495" y="80" width="275" height="275" />
+                                    </g>
+
+                                    <g id="hallway">
+                                        <rect class="room" x="20" y="355" width="425" height="285" />
+                                    </g>
+
+                                    <g id="living_room">
+                                        <polygon class="room" points="445,355 770,355 770,80 980,80 980,640 445,640" />
+                                    </g>
+
+                                    <g id="bed_room_2">
+                                        <rect class="room" x="295" y="640" width="425" height="275" />
+                                    </g>
+
+                                </svg>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="row">
+<!-- Light 1 -->
+                            <div class="device-card col-xl-4 col-md-6 mb-4" id="0" data-object="{{d}}"
+                                data-room="living_room">
+                                <div class="card h-100 position-relative">
+                                    <button type="button" class="close text-danger deleteDevice" data-ip="0"
+                                        aria-label="Close"
+                                        style="position: absolute; top: 5px; right: 10px; z-index: 1;">
+                                        <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                                    </button>
+                                    <div class="card-header"><i class="fa fa-lightbulb-o"></i>Living Room Light</div>
+                                    <div class="card-body">
+
+                                        <button class="btn btn-success btn-block mb-2 lampswitch"
+                                            id="lampswitch-0" data-ip="0"><i
+                                                class="fas fa-power-off"></i></button>
+
+
+                                        <div class="slidecontainer">
+                                            <p>Set Brightness:</p>
+                                            <input type="range" min="0" max="100" value="{{d.brightness}}"
+                                                class="slider brightnessSlider" id="brightnessSlider"
+                                                data-ip="0">
+                                        </div>
+
+                                        <input type="color" id="lightcolour" class="lightcolour" name="lightcolour"
+                                            value="#ffffff" data-ip="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Light 2 -->
+                            <div class="device-card col-xl-4 col-md-6 mb-4" id="1" data-object="{{d}}"
+                                data-room="living_room">
+                                <div class="card h-100 position-relative">
+                                    <button type="button" class="close text-danger deleteDevice" data-ip="1"
+                                        aria-label="Close"
+                                        style="position: absolute; top: 5px; right: 10px; z-index: 1;">
+                                        <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                                    </button>
+                                    <div class="card-header"><i class="fa fa-lightbulb-o"></i>Living Room 2</div>
+                                    <div class="card-body">
+
+                                        <button class="btn btn-danger btn-block mb-2 lampswitch"
+                                            id="lampswitch-{{d.ip}}" data-ip="{{d.ip}}"><i
+                                                class="fas fa-power-off"></i></button>
+
+                                        <div class="slidecontainer">
+                                            <p>Set Brightness:</p>
+                                            <input type="range" min="0" max="100" value="{{d.brightness}}"
+                                                class="slider brightnessSlider" id="brightnessSlider"
+                                                data-ip="{{d.ip}}">
+                                        </div>
+
+                                        <input type="color" id="lightcolour" class="lightcolour" name="lightcolour"
+                                            value="#000" data-ip="{{d.ip}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Light 3 -->
+                            <div class="device-card col-xl-4 col-md-6 mb-4" id="0" data-object="{{d}}"
+                                data-room="bed_room_2">
+                                <div class="card h-100 position-relative">
+                                    <button type="button" class="close text-danger deleteDevice" data-ip="0"
+                                        aria-label="Close"
+                                        style="position: absolute; top: 5px; right: 10px; z-index: 1;">
+                                        <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                                    </button>
+                                    <div class="card-header"><i class="fa fa-lightbulb-o"></i>My Bed Light</div>
+                                    <div class="card-body">
+
+                                        <button class="btn btn-success btn-block mb-2 lampswitch"
+                                            id="lampswitch-{{d.ip}}" data-ip="{{d.ip}}"><i
+                                                class="fas fa-power-off"></i></button>
+
+                                        <div class="slidecontainer">
+                                            <p>Set Brightness:</p>
+                                            <input type="range" min="0" max="100" value="{{d.brightness}}"
+                                                class="slider brightnessSlider" id="brightnessSlider"
+                                                data-ip="{{d.ip}}">
+                                        </div>
+
+                                        <input type="color" id="lightcolour" class="lightcolour" name="lightcolour"
+                                            value="#ff0000" data-ip="{{d.ip}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Light 4 -->
+                            <div class="device-card col-xl-4 col-md-6 mb-4" id="0" data-object="{{d}}"
+                                data-room="bed_room_1">
+                                <div class="card h-100 position-relative">
+                                    <button type="button" class="close text-danger deleteDevice" data-ip="0"
+                                        aria-label="Close"
+                                        style="position: absolute; top: 5px; right: 10px; z-index: 1;">
+                                        <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                                    </button>
+                                    <div class="card-header"><i class="fa fa-lightbulb-o"></i>Bed Light </div>
+                                    <div class="card-body">
+
+                                        <button class="btn btn-danger btn-block mb-2 lampswitch"
+                                            id="lampswitch-{{d.ip}}" data-ip="{{d.ip}}"><i
+                                                class="fas fa-power-off"></i></button>
+
+                                        <div class="slidecontainer">
+                                            <p>Set Brightness:</p>
+                                            <input type="range" min="0" max="100" value="{{d.brightness}}"
+                                                class="slider brightnessSlider" id="brightnessSlider"
+                                                data-ip="{{d.ip}}">
+                                        </div>
+
+                                        <input type="color" id="lightcolour" class="lightcolour" name="lightcolour"
+                                            value="#000000" data-ip="{{d.ip}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                       
+
+
+
+
+                            <div class="device-card col-xl-4 col-md-6 mb-4" data-room="living_room">
+                                <div class="card h-100 position-relative">
+                                    <button type="button" class="close text-danger deleteDevice" data-ip="{{d.ip}}"
+                                        aria-label="Close"
+                                        style="position: absolute; top: 5px; right: 10px; z-index: 1;">
+                                        <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+                                    </button>
+                                    <div class="card-header"><i class="fa fa-television"></i> Living room firestick</div>
+                                    <div class="card-body">
+                                        <button class="btn btn-info btn-block mb-2" id="next_episode">Next
+                                            Episode</button>
+                                        <button class="btn btn-info btn-block mb-2" id="playpause">Play/Pause</button>
+                                        <button class="btn btn-info btn-block mb-2" id="recent_show">Most Recent
+                                            Show</button>
+                                        <button class="btn btn-info btn-block" id="formula1">Formula 1</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha384-+r6gDfG5/wCqu3OyXQYbM/h2vGzt6KoYzVxNfCLxlyyNHm2YLa0bGbHzrTNBvUjL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@9.2.2/dist/gridstack-all.min.js"></script>
+    <script src="./static/js/dashboardDevices.js"></script>
+</body>
+</body>
+
+</html>
