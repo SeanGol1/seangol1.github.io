@@ -26,8 +26,6 @@
             color: rgb(239, 239, 243)
         }
 
-        #idname {}
-
         .noteitem {
             color: red;
             /* }
@@ -116,7 +114,6 @@
         }
 
         .slider {
-            -webkit-appearance: none;
             width: 100%;
             height: 25px;
             background: #d3d3d3;
@@ -161,8 +158,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" id="home" href="/HomeAutomation/home">Home</a>
-                <a class="nav-item nav-link" id="devices" href="/HomeAutomation/dashboardDevices.html">Device page</a>
+                <a class="nav-item nav-link" id="home" href="home">Home</a>
+                <a class="nav-item nav-link" id="dashboard" href="dashboard.html">Dashboard page</a>
+
+                <a class="nav-item nav-link" id="devices" href="dashboardDevices.html">Device page</a>
             </div>
         </div>
 
@@ -176,7 +175,8 @@
                 <h1 class="mb-4"><i class="fa fa-home"></i> Smart Home Controller</h1>
 
                 <div>
-                    <a class="btn btn-primary btn-block mb-2" id="devices" href="/HomeAutomation/dashboardDevices">View Devices</a>
+                    <a class="btn btn-primary btn-block mb-2" id="dashboard" href="dashboard.html">View Dashboard</a>
+                    <a class="btn btn-primary btn-block mb-2" id="devices" href="dashboardDevices.html">View Devices</a>
                 </div>
 
                 <h4 class="text-info">Overview</h4>

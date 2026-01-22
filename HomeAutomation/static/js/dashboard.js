@@ -4,45 +4,47 @@ let grid;
         function saveLayout() {
         const layout = grid.save(false);  // 'false' means save full layout with content
         localStorage.setItem("gridLayout", JSON.stringify(layout));
-        fetch('/save-layout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(layout)
-        });
         alert("Layout saved!");
     }
 
     function resetLayout() {
         localStorage.removeItem("gridLayout");
-        fetch('/save-layout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: []
-        });
         location.reload();
         alert("Layout reset!");
     }
 
 document.addEventListener("DOMContentLoaded", function () {
-    grid = GridStack.init({
-        float: false,
-        //cellHeight: '120px',
-        margin: 5,
-        staticGrid: true
+    // grid = GridStack.init({
+    //     float: false,
+    //     //cellHeight: '120px',
+    //     margin: 5,
+    //     staticGrid: true
+    // });
+
+        const grid = GridStack.init({
+      cellHeight: 80,
+      margin: 5,
+      float: false,
+      disableOneColumnMode: false, // important for mobile
+      oneColumnSize: 768,           // breakpoint for stacking
+       staticGrid: true
     });
 
-    // Load saved layout if available local first and then from server (number of devices)
+    window.grid = grid; // optional (useful for debugging)
+
+
+    //Load saved layout if available local first and then from server (number of devices)
     let savedLayout = localStorage.getItem("gridLayout");
 
-    if (!savedLayout) {
-        fetch('/load-layout')
-            .then(response => response.json())
-            .then(data => {
-                if (data.layout) {
-                    savedLayout = data.layout;
-                }
-            });
-    }
+    // if (!savedLayout) {
+    //     fetch('/load-layout')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.layout) {
+    //                 savedLayout = data.layout;
+    //             }
+    //         });
+    // }
 
     if (savedLayout) {
         try {
@@ -69,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const savedMode = localStorage.getItem('darkMode');
     const isDarkMode = savedMode === null ? true : savedMode === 'true'
 
-    // Set dark mode as default            
+    // Set dark mode as default
     toggle.checked = isDarkMode;
     document.body.classList.toggle('dark-mode', toggle.checked);
     //body.classList.add('dark-mode');
@@ -80,91 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.toggle('dark-mode', isDark);
 
     });
-
-
-
-
-
-
-
-    function refreshDeviceStatus() {
-        fetch('/get_device_status')
-            .then(res => res.json())
-            .then(devices => {
-                devices.forEach(d => {
-                    const button = document.querySelector(`.lampswitch[data-ip="${d.ip}"]`);
-                    if (button) {
-                        button.classList.toggle('btn-success', d.state);
-                        button.classList.toggle('btn-danger', !d.state);
-                    }
-
-                    const slider = document.querySelector(`.brightnessSlider[data-ip="${d.ip}"]`);
-                    if (slider && d.brightness !== null) {
-                        slider.value = d.brightness;
-                    }
-
-                    const color = document.querySelector(`.lightcolour[data-ip="${d.ip}"]`);
-                    if (color && d.colour) {
-                        color.value = d.colour;
-                    }
-                });
-            });
-    }
-
-    setInterval(refreshDeviceStatus, 10000);  // every 10 seconds
-    refreshDeviceStatus();  // on load
-
-
-
-
-    $(document).ready(function () {
-        $('.lampswitch').on('click', function (e) {
-            e.preventDefault()
-            const ip = $(this).data('ip');
-            fetch(`/lampswitch/${ip}`, {
-                method: "POST",
-            })
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    const id = `lampswitch-${ip}`;
-                    const safeId = CSS.escape(id);
-                    if (data.isOn === true) {
-                        $(`#${safeId}`).removeClass('btn-danger').addClass('btn-success');
-                    } else {
-                        $(`#${safeId}`).removeClass('btn-success').addClass('btn-danger');
-                    }
-                });
-
-            return false;
-        });
-    });
-
-    document.querySelectorAll('.brightnessSlider').forEach(slider => {
-        slider.addEventListener('change', () => {
-            const ip = slider.dataset.ip;
-            const brightness = slider.value;
-            fetch('/setlampbright', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ip, brightness })
-            });
-        });
-    });
-
-    document.querySelectorAll('.lightcolour').forEach(picker => {
-        picker.addEventListener('change', () => {
-            const ip = picker.dataset.ip;
-            const colour = picker.value;
-            fetch('/setcolour', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ip, colour })
-            });
-        });
-    });
-
 
 
 });
